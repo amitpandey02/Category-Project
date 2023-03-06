@@ -1,0 +1,46 @@
+﻿@model IEnumerable<CategoryNewProject.Models.Product>
+
+@{
+    ViewBag.Title = "ProductList";
+}
+
+<h2>ProductList</h2>
+
+
+    @Html.ActionLink("AddProduct", "AddProduct", new { id = @Session["CategoryIdforProductCreatio"] })
+ 
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.ProductName)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.ProductDescription)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.CategoryId)
+        </th>
+        <th></th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.ProductName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.ProductDescription)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.CategoryId)
+            </td>
+            <td>
+                @Html.ActionLink("EditProduct", "EditProduct", new { id = item.ProductId }) |
+          
+                @Html.ActionLink("DeleteProduct", "DeleteProduct", new { id = item.ProductId })
+            </td>
+        </tr>
+    }
+
+</table>
