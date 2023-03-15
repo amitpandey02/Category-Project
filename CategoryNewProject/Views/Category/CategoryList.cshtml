@@ -7,7 +7,7 @@
 <h2>CategoryList</h2>
 
 <p>
-    @Html.ActionLink("AddCategory", "AddCategory")
+    @Html.ActionLink("AddCategory", "AddCategory", null, new { @class = "btn btn-success" })
 </p>
 <table class="table">
     <tr>
@@ -17,24 +17,63 @@
         <th>
             @Html.DisplayNameFor(model => model.CategoryName)
         </th>
+        <th>
+            @Html.DisplayNameFor(model => model.IsActive)
+        </th>
+
         <th></th>
     </tr>
 
-@foreach (var item in Model) {
-    <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.CategoryId)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.CategoryName)
-        </td>
-        <td>
-            @Html.ActionLink("ListOfProduct", "ProductList", new { id = item.CategoryId }) |
-            @Html.ActionLink("EditCategory", "EditCategory", new { id = item.CategoryId }) |
-            @Html.ActionLink("DeleteCategory", "DeleteCategory", new { id = item.CategoryId }) |
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.CategoryId)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.CategoryName)
+            </td>
+            <td>
 
-        </td>
-    </tr>
-}
+                @Html.ActionLink("Activate", "Activate", new { id = item.CategoryId,number= @Session["Number"] }, new { @class = "btn btn-info" })
+                @Html.ActionLink("Deactivate", "Deactivate", new { id = item.CategoryId,number= @Session["Number"] }, new { @class = "btn btn-danger" })
+                <span>&nbsp;&nbsp;</span>
+                @if (item.IsActive)
+                {
+                    @Html.ActionLink("ListOfProduct", "ProductList", new { id = item.CategoryId}, new { @class = "btn btn-success" })
+
+                    <span>&nbsp;</span>@Html.ActionLink("EditCategory", "EditCategory", new { id = item.CategoryId, number = @Session["Number"] }, new { @class = "btn btn-warning" })
+
+                    <span>&nbsp;</span>@Html.ActionLink("DeleteCategory", "DeleteCategory", new { id = item.CategoryId }, new { @class = "btn btn-danger" })
+
+                }
+            </td>
+        </tr>
+    }
 
 </table>
+
+@{
+    double totalPage = ViewBag.TotalPage;
+    for (int i = 1; i <= totalPage; i++)
+    {
+<ul class="pagination">
+
+    @if (i == Convert.ToInt32(@Session["Number"]))
+    {
+        <li class="active">
+            @Html.ActionLink(i.ToString(), "CategoryList", new { PageNumber = i })
+        </li>
+
+    }
+    else
+    {
+        <li>
+            @Html.ActionLink(i.ToString(), "CategoryList", new { PageNumber = i })
+        </li>
+    }
+
+</ul>
+
+}
+}

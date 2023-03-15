@@ -7,8 +7,8 @@
 <h2>ProductList</h2>
 
 
-    @Html.ActionLink("AddProduct", "AddProduct", new { id = @Session["CategoryIdforProductCreatio"] })
- 
+@Html.ActionLink("AddProduct", "AddProduct", new { id = @Session["CategoryIdforProductCreatio"] }, new { @class = "btn btn-success" })
+
 <table class="table">
     <tr>
         <th>
@@ -36,11 +36,35 @@
                 @Html.DisplayFor(modelItem => item.CategoryId)
             </td>
             <td>
-                @Html.ActionLink("EditProduct", "EditProduct", new { id = item.ProductId }) |
-          
-                @Html.ActionLink("DeleteProduct", "DeleteProduct", new { id = item.ProductId })
+                @Html.ActionLink("EditProduct", "EditProduct", new { id = item.ProductId, number= @Session["Number"] }, new { @class = "btn btn-warning" })
+
+                @Html.ActionLink("DeleteProduct", "DeleteProduct", new { id = item.ProductId, cid =item.CategoryId}, new { @class = "btn btn-danger" })
             </td>
         </tr>
     }
 
 </table>
+@{
+    double totalPage = ViewBag.ProductTotalPage;
+    for (int i = 1; i <= totalPage; i++)
+    {
+        <ul class="pagination">
+
+            @if (i == Convert.ToInt32(@Session["Number"]))
+            {
+                <li class="active">
+                    @Html.ActionLink(i.ToString(), "ProductList", new { ProductPageNumber = i })
+                </li>
+
+            }
+            else
+            {
+                <li>
+                    @Html.ActionLink(i.ToString(), "ProductList", new { ProductPageNumber = i })
+                </li>
+            }
+
+        </ul>
+
+    }
+}

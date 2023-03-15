@@ -85,3 +85,4 @@ C:\c sharp\CategoryNewProject\CategoryNewProject\obj\Debug\CategoryNewProject.Mi
 C:\c sharp\CategoryNewProject\CategoryNewProject\obj\Debug\CategoryNewProject.csproj.GenerateResource.cache
 C:\c sharp\CategoryNewProject\CategoryNewProject\obj\Debug\CategoryNewProject.Migrations.upodate.resources
 C:\c sharp\CategoryNewProject\CategoryNewProject\obj\Debug\CategoryNewProject.Migrations.update.resources
+C:\c sharp\CategoryNewProject\CategoryNewProject\obj\Debug\CategoryNewProject.Migrations.initial1.resources
