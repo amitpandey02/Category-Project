@@ -128,7 +128,9 @@
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="Controllers\CategoryController.cs" />
+    <Compile Include="Controllers\CredentialController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\ReportController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -148,11 +150,31 @@
     <Compile Include="Migrations\202303140638209_initial1.designer.cs">
       <DependentUpon>202303140638209_initial1.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202303170709183_credential.cs" />
+    <Compile Include="Migrations\202303170709183_credential.designer.cs">
+      <DependentUpon>202303170709183_credential.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202303171041355_p_categoryname.cs" />
+    <Compile Include="Migrations\202303171041355_p_categoryname.designer.cs">
+      <DependentUpon>202303171041355_p_categoryname.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202303171046497_p_createdby.cs" />
+    <Compile Include="Migrations\202303171046497_p_createdby.designer.cs">
+      <DependentUpon>202303171046497_p_createdby.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202303171124259_p_removecategoryname.cs" />
+    <Compile Include="Migrations\202303171124259_p_removecategoryname.designer.cs">
+      <DependentUpon>202303171124259_p_removecategoryname.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\Category.cs" />
+    <Compile Include="Models\Credential.cs" />
     <Compile Include="Models\DatabaseContext.cs" />
     <Compile Include="Models\Product.cs" />
+    <Compile Include="Models\ReportViewModel.cs" />
+    <Compile Include="Models\Role.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="UserRoleProvider.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Content\bootstrap-theme.css" />
@@ -198,6 +220,9 @@
     <Content Include="Views\Category\DeleteCategory.cshtml" />
     <Content Include="Views\Category\EditProduct.cshtml" />
     <Content Include="Views\Category\DeleteProduct.cshtml" />
+    <Content Include="Views\Credential\Login.cshtml" />
+    <Content Include="Views\Credential\SignUp.cshtml" />
+    <Content Include="Views\Report\CreateReport.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -227,6 +252,18 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202303140638209_initial1.resx">
       <DependentUpon>202303140638209_initial1.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202303170709183_credential.resx">
+      <DependentUpon>202303170709183_credential.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202303171041355_p_categoryname.resx">
+      <DependentUpon>202303171041355_p_categoryname.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202303171046497_p_createdby.resx">
+      <DependentUpon>202303171046497_p_createdby.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202303171124259_p_removecategoryname.resx">
+      <DependentUpon>202303171124259_p_removecategoryname.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

@@ -8,7 +8,11 @@
 
 <p>
     @Html.ActionLink("AddCategory", "AddCategory", null, new { @class = "btn btn-success" })
+    @Html.ActionLink("CreateReport", "CreateReport","Report", null, new { @class = "btn btn-primary", @style = "float:right;" })
+
 </p>
+
+    
 <table class="table">
     <tr>
         <th>
@@ -20,6 +24,7 @@
         <th>
             @Html.DisplayNameFor(model => model.IsActive)
         </th>
+       
 
         <th></th>
     </tr>
@@ -38,13 +43,14 @@
                 @Html.ActionLink("Activate", "Activate", new { id = item.CategoryId,number= @Session["Number"] }, new { @class = "btn btn-info" })
                 @Html.ActionLink("Deactivate", "Deactivate", new { id = item.CategoryId,number= @Session["Number"] }, new { @class = "btn btn-danger" })
                 <span>&nbsp;&nbsp;</span>
+            
                 @if (item.IsActive)
                 {
                     @Html.ActionLink("ListOfProduct", "ProductList", new { id = item.CategoryId}, new { @class = "btn btn-success" })
 
                     <span>&nbsp;</span>@Html.ActionLink("EditCategory", "EditCategory", new { id = item.CategoryId, number = @Session["Number"] }, new { @class = "btn btn-warning" })
 
-                    <span>&nbsp;</span>@Html.ActionLink("DeleteCategory", "DeleteCategory", new { id = item.CategoryId }, new { @class = "btn btn-danger" })
+                    <span>&nbsp;</span>@Html.ActionLink("DeleteCategory", "DeleteCategory",new { id = item.CategoryId }, new { @class = "btn btn-danger" })
 
                 }
             </td>

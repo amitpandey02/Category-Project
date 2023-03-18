@@ -10,5 +10,7 @@ namespace CategoryNewProject.Models
     {
         public DbSet<Category> Categories { get; set;}
         public DbSet<Product> Products { get;set;}
+        public DbSet<Credential> Credentials { get; set;}
+        public DbSet<Role> Roles { get; set;}
     }
 }

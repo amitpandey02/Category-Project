@@ -17,6 +17,7 @@ namespace CategoryNewProject.Controllers
     {
         private DatabaseContext db = new DatabaseContext();
         // GET: Category;
+        [Authorize(Roles = "admin,customer")]
         public async Task<ActionResult> CategoryList(int PageNumber = 1)
         {
             var row = await db.Categories.ToListAsync();
@@ -28,15 +29,17 @@ namespace CategoryNewProject.Controllers
             return View(data);
             // return View();
         }
-        public async Task<ActionResult> ProductList(int id,int ProductPageNumber=1)
+        [Authorize(Roles = "admin,customer")]
+        public async Task<ActionResult> ProductList(int id, int ProductPageNumber = 1)
         {
             Session["CategoryIdforProductCreatio"] = id;
             var data = await db.Products.Where(c => c.CategoryId == id).ToListAsync();
             ViewBag.ProductTotalPage = Math.Ceiling(data.Count() / 3.0);
-            var row = db.Products.Where(x=>x.CategoryId==id).OrderBy(x => x.ProductId).Skip((ProductPageNumber - 1) * 3).Take(3);
+            var row = db.Products.Where(x => x.CategoryId == id).OrderBy(x => x.ProductId).Skip((ProductPageNumber - 1) * 3).Take(3);
             Session["Number"] = ProductPageNumber;
             return View(row);
         }
+        [Authorize(Roles = "admin")]
         public ActionResult AddProduct(int id)
         {
 
@@ -45,32 +48,41 @@ namespace CategoryNewProject.Controllers
         }
 
         [HttpPost]
-
+        [Authorize(Roles = "admin")]
+        //public async Task<ActionResult> AddProduct(string UserName, Product product, FormCollection fs)
         public async Task<ActionResult> AddProduct(Product product, FormCollection fs)
-        {
+        {          
             product.CategoryId = Convert.ToInt32(fs["Id"]);
+            product.CreatedBy =fs["CreatedBy"];
+            //product.CreatedBy = User.Identity.Name;
+
+
             db.Products.Add(product);
             await db.SaveChangesAsync();
-            return RedirectToAction("ProductList", new {id= Session["id"] });
+            return RedirectToAction("ProductList", new { id = Session["id"] });
         }
+        [Authorize(Roles = "admin")]
         public ActionResult AddCategory()
         {
             return View();
         }
         [HttpPost]
+        [Authorize(Roles = "admin")]
         public async Task<ActionResult> AddCategory(Category category)
         {
             db.Categories.Add(category);
             await db.SaveChangesAsync();
             return RedirectToAction("CategoryList");
         }
-        public async Task<ActionResult> EditProduct(int id,int number)
+        [Authorize(Roles = "admin")]
+        public async Task<ActionResult> EditProduct(int id, int number)
         {
             TempData["ProductPageNumber"] = number;
             var data = await db.Products.Where(c => c.ProductId == id).FirstOrDefaultAsync();
             return View(data);
         }
         [HttpPost]
+        [Authorize(Roles = "admin")]
         public async Task<ActionResult> EditProduct(Product product)
         {
             var id = product.CategoryId;
@@ -79,52 +91,53 @@ namespace CategoryNewProject.Controllers
 
             //db.Entry(product).State = EntityState.Modified;
             await db.SaveChangesAsync();
-            return RedirectToAction("ProductList", new { id,ProductPageNumber = TempData["ProductPageNumber"] });
+            return RedirectToAction("ProductList", new { id, ProductPageNumber = TempData["ProductPageNumber"] });
         }
-        public async Task<ActionResult> DeleteProduct(int id,int cid)
+        [Authorize(Roles = "admin")]
+        public async Task<ActionResult> DeleteProduct(int id, int cid)
         {
             var row = await db.Products.Where(model => model.ProductId == id).FirstOrDefaultAsync();
             db.Products.Remove(row);
             await db.SaveChangesAsync();
-            return RedirectToAction("ProductList", new {id= cid, ProductPageNumber= Session["Number"] });
+            return RedirectToAction("ProductList", new { id = cid, ProductPageNumber = Session["Number"] });
         }
-        public async Task<ActionResult> EditCategory(int id,int number)
+        [Authorize(Roles = "admin")]
+        public async Task<ActionResult> EditCategory(int id, int number)
         {
             TempData["Number"] = number;
             var row = await db.Categories.Where(model => model.CategoryId == id).FirstOrDefaultAsync();
             return View(row);
         }
         [HttpPost]
+        [Authorize(Roles = "admin")]
         public async Task<ActionResult> EditCategory(Category category)
         {
 
             db.Entry(category).State = EntityState.Modified;
             await db.SaveChangesAsync();
-            return RedirectToAction("CategoryList", new {PageNumber= TempData["Number"] });
+            return RedirectToAction("CategoryList", new { PageNumber = TempData["Number"] });
 
         }
+        [Authorize(Roles = "admin")]
         public async Task<ActionResult> DeleteCategory(int id)
         {
             var row = await db.Categories.Where(model => model.CategoryId == id).FirstOrDefaultAsync();
             db.Categories.Remove(row);
             await db.SaveChangesAsync();
-            return RedirectToAction("CategoryList", new {PageNumber= Session["Number"] });
+            return RedirectToAction("CategoryList", new { PageNumber = Session["Number"] });
         }
-
-        public ActionResult Activate(int id,int number)
+        [Authorize(Roles = "admin")]
+        public async Task<ActionResult> Activate(int id, int number)
         {
-            var result = db.Database.ExecuteSqlCommand("EXEC active  @CategoryId", new SqlParameter("@CategoryId", id));
-            return RedirectToAction("CategoryList", new { PageNumber= number });
+            var result = await db.Database.ExecuteSqlCommandAsync("EXEC active  @CategoryId", new SqlParameter("@CategoryId", id));
+            return RedirectToAction("CategoryList", new { PageNumber = number });
         }
-
-        public ActionResult Deactivate(int id,int number)
+        [Authorize(Roles = "admin")]
+        public async Task<ActionResult> Deactivate(int id, int number)
         {
-            var result = db.Database.ExecuteSqlCommand("EXEC deactive  @CategoryId", new SqlParameter("@CategoryId", id));
-            return RedirectToAction("CategoryList", new { PageNumber=number });
+            var result = await db.Database.ExecuteSqlCommandAsync("EXEC deactive  @CategoryId", new SqlParameter("@CategoryId", id));
+            return RedirectToAction("CategoryList", new { PageNumber = number });
         }
-
-
-
 
     }
 }

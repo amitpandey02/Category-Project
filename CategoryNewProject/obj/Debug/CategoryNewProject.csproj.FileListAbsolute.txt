@@ -86,3 +86,7 @@ C:\c sharp\CategoryNewProject\CategoryNewProject\obj\Debug\CategoryNewProject.cs
 C:\c sharp\CategoryNewProject\CategoryNewProject\obj\Debug\CategoryNewProject.Migrations.upodate.resources
 C:\c sharp\CategoryNewProject\CategoryNewProject\obj\Debug\CategoryNewProject.Migrations.update.resources
 C:\c sharp\CategoryNewProject\CategoryNewProject\obj\Debug\CategoryNewProject.Migrations.initial1.resources
+C:\c sharp\CategoryNewProject\CategoryNewProject\obj\Debug\CategoryNewProject.Migrations.credential.resources
+C:\c sharp\CategoryNewProject\CategoryNewProject\obj\Debug\CategoryNewProject.Migrations.p_categoryname.resources
+C:\c sharp\CategoryNewProject\CategoryNewProject\obj\Debug\CategoryNewProject.Migrations.p_createdby.resources
+C:\c sharp\CategoryNewProject\CategoryNewProject\obj\Debug\CategoryNewProject.Migrations.p_removecategoryname.resources

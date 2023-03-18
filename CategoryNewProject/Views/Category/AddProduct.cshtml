@@ -6,11 +6,11 @@
 
 <h2>AddProduct</h2>
 
-
-@using (Html.BeginForm()) 
+@*@using (Html.BeginForm("AddProduct", "Category", new { UserName = User.Identity.Name }, FormMethod.Post, null))*@
+@using (Html.BeginForm())
 {
     @Html.AntiForgeryToken()
-    
+
     <div class="form-horizontal">
         <h4>Product</h4>
         <hr />
@@ -32,12 +32,21 @@
         </div>
 
         <div class="form-group">
-           @*@ @Html.LabelFor(model => model.CategoryId, htmlAttributes: new { @class = "control-label col-md-2" })*@
+            @*@ @Html.LabelFor(model => model.CategoryId, htmlAttributes: new { @class = "control-label col-md-2" })*@
             <div class="col-md-10">
-  
-              @Html.Hidden("Id",new {id =Convert.ToInt32(Session["id"]) })
+
+                @Html.Hidden("Id", new { Id = Convert.ToInt32(Session["id"]) })
             </div>
         </div>
+
+        <div class="form-group">
+            @*@ @Html.LabelFor(model => model.CategoryId, htmlAttributes: new { @class = "control-label col-md-2" })*@
+            <div class="col-md-10">
+
+                @Html.Hidden("CreatedBy",@User.Identity.Name)
+            </div>
+        </div>
+
 
         <div class="form-group">
             <div class="col-md-offset-2 col-md-10">
