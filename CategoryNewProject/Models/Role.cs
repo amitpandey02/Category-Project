@@ -10,9 +10,7 @@ namespace CategoryNewProject.Models
     {
         [Key]
         public int RoleId { get; set; }
-       
-        public string UserRole { get; set; }
-        
 
+        public string UserRole { get; set; }
     }
 }

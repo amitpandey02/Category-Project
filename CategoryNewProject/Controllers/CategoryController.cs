@@ -34,11 +34,29 @@ namespace CategoryNewProject.Controllers
         {
             Session["CategoryIdforProductCreatio"] = id;
             var data = await db.Products.Where(c => c.CategoryId == id).ToListAsync();
-            ViewBag.ProductTotalPage = Math.Ceiling(data.Count() / 3.0);
-            var row = db.Products.Where(x => x.CategoryId == id).OrderBy(x => x.ProductId).Skip((ProductPageNumber - 1) * 3).Take(3);
+            var total = Math.Ceiling(data.Count() / 3.0);
+            ViewBag.ProductTotalPage = total;
+            var parameters = new[]
+            {
+                new SqlParameter("@PageSize",3),
+                new SqlParameter("@PageNumber",ProductPageNumber),
+                new SqlParameter("@Categoryid",id)
+                
+            };
+            var result =await db.Database.SqlQuery<ProductPageViewModel>("EXEC _spProductPaging  @PageSize,@PageNumber,@Categoryid", parameters).ToListAsync();
             Session["Number"] = ProductPageNumber;
-            return View(row);
+            return View(result);
         }
+        //[Authorize(Roles = "admin,customer")]
+        //public async Task<ActionResult> ProductList(int id, int ProductPageNumber = 1)
+        //{
+        //    Session["CategoryIdforProductCreatio"] = id;
+        //    var data = await db.Products.Where(c => c.CategoryId == id).ToListAsync();
+        //    ViewBag.ProductTotalPage = Math.Ceiling(data.Count() / 3.0);
+        //    var row = db.Products.Where(x => x.CategoryId == id).OrderBy(x => x.ProductId).Skip((ProductPageNumber - 1) * 3).Take(3);
+        //    Session["Number"] = ProductPageNumber;
+        //    return View(row);
+        //}
         [Authorize(Roles = "admin")]
         public ActionResult AddProduct(int id)
         {
